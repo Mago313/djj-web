@@ -26,11 +26,9 @@ useEffect(() => {
 },[])
 
   if(loading) return <LoaderPage />
-
-
   return (
     <Routes>
-      <Route path="/" element={<FirstPage state={state} setState={setState} modalActive={modalActive} setModalActive={setModalActive} />} />
+      <Route path="/" element={<FirstPage state={state} setState={setState} modalActive={modalActive} setModalActive={setModalActive} isDayOff={isDayOff} />} />
       <Route path="/sign-in" element={<AuthorizationPage />} />
       <Route path="/categories" element={<CategoriesPage state={state} setState={setState} modalActive={modalActive} setModalActive={setModalActive} />} />
       <Route path="/date" element={<DatePage state={state} setState={setState} modalActive={modalActive} setModalActive={setModalActive} />} />

@@ -13,11 +13,22 @@ import MenuBlock from "../components/MenuBlock";
 type TProps = {
   state: State
   modalActive: boolean
+  isDayOff: boolean
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>
   setState: React.Dispatch<React.SetStateAction<State>>
 }
 
-const FirstPage = ({ state, modalActive, setModalActive, setState }: TProps) => {
+const FirstPage = ({ state,isDayOff, modalActive, setModalActive, setState }: TProps) => {
+
+  if (isDayOff) {
+    return (
+      <MainLayout title="DJJ" subtitle="Уход за мужским имиджем">
+        <Spacing>
+          <h4>Админ временно приостановил записи</h4>
+        </Spacing>
+      </MainLayout>
+    )
+  }
   
   return (
     <MainLayout title="DJJ" subtitle="Уход за мужским имиджем">
