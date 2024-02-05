@@ -1,0 +1,88 @@
+.body {
+    background-color: white;
+    height: 100vh;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: center;
+    padding-top: 32px;
+    div {
+      text-align: center;
+    }
+  }
+  .umarImg {
+    width: 320px;
+    height: 399px;
+    object-fit: cover;
+    border-radius: 100px;
+    margin-top: 20px;
+    animation: fadeIn ease 3s;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .logo {
+    font-family: "roboto";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 29px;
+    margin-top: 20px;
+    color: black;
+  }
+  
+  .mania {
+    font-weight: 400;
+  }
+  .imgBlock {
+    p {
+      font-family: "SF Pro Display";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 20px;
+      color: black;
+    }
+  }
+  
+  img.rot {
+    animation: 1s linear 0s normal none infinite running rot;
+    -webkit-animation: 1s linear 0s normal none infinite running rot;
+    width: 50px;
+  }
+  @keyframes rot {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes rot {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .empty {
+    width: 13px;
+  }
+  .emptyBtn {
+    width: 10px;
+  }
+  
+  .loaderBlock {
+    display: flex;
+    justify-content: center;
+    height: 80vh;
+  }

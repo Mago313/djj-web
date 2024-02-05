@@ -1,0 +1,87 @@
+.card {
+    width: 300px;
+    background: #ffffff;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 18px;
+    animation: fadeIn ease 3s;  
+    padding: 8px;
+    div {
+      font-family: "roboto";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 19px;
+      color: #6e6e73;
+      
+    }
+    .photo {
+      text-align: center;
+      padding: 8px 16px 8px 8px;
+    }
+
+    .text {
+      padding: 8px 16px 8px 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-decoration: none;
+    
+    }
+   
+    
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+
+.add { 
+  transform: rotate(90);
+}
+.remove {
+  transform: rotate(0);
+}
+
+.appointment {
+    width: 300px;
+    background: #ffffff;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 18px;
+    margin-top: 8px;
+    div {
+      font-family: "roboto";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 19px;
+      color: #6e6e73;
+    }
+}
+
+.timeBar {
+  background-color: var(--color-additional);
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  padding: 8px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  div {
+    color: #fff;
+  }
+  span {
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+}
+
+.phone {
+  color: #306289;
+  text-decoration: none;
+}
