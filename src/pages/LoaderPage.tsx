@@ -22,7 +22,7 @@ const LoaderPage: React.FC = () => {
                             <span className={styles.apple}>DJJ</span>
                             <span className={styles.mania}></span>
                         </div>
-                        <p>уход за мужским имеджем</p>
+                        <p>уход за мужским имиджем</p>
                     </div>
                     <div>
                         <img className={styles.rot} src={loader} alt="" />
