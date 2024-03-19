@@ -7,4 +7,4 @@ export * from './createYear';
 export * from './createMonth';
 export * from './getMonthNumberOfDays';
 export * from './checkDateIsEqual';
-export * from './checkIsToday'
+export * from './checkIsToday';

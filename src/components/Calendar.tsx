@@ -6,11 +6,11 @@ import { State } from '../types/state';
 
 interface CalendarProps {
   locale?: string;
-  state: Pick<State, 'time'>
+  state: Pick<State, 'time'>;
   selectedDate: Date;
   selectDate: (date: Date) => void;
   firstWeekDayNumber?: number;
-  setState: React.Dispatch<React.SetStateAction<State>>
+  setState: React.Dispatch<React.SetStateAction<State>>;
 }
 
 export const Calendar: React.FC<CalendarProps> = ({
@@ -19,14 +19,13 @@ export const Calendar: React.FC<CalendarProps> = ({
   state: selectedTime,
   selectDate,
   setState,
-  firstWeekDayNumber = 2
+  firstWeekDayNumber = 2,
 }) => {
   const { functions, state } = useCalendar({
     locale,
     selectedDate: date,
     firstWeekDayNumber,
   });
-  
 
   return (
     <div>
@@ -39,7 +38,8 @@ export const Calendar: React.FC<CalendarProps> = ({
           />
           {state.mode === 'days' && (
             <div aria-hidden>
-              {state.monthesNames[state.selectedMonth.monthIndex].month} {state.selectedYear}
+              {state.monthesNames[state.selectedMonth.monthIndex].month}{' '}
+              {state.selectedYear}
             </div>
           )}
           <div
@@ -58,10 +58,14 @@ export const Calendar: React.FC<CalendarProps> = ({
               </div>
               <div className={styles.calendar__days}>
                 {state.calendarDays.map((day) => {
-                  const currentDay = new Date()
+                  const currentDay = new Date();
                   const isToday = checkIsToday(day.date);
-                  const isSelectedDay = checkDateIsEqual(day.date, state.selectedDay.date);
-                  const isAdditionalDay = day.monthIndex !== state.selectedMonth.monthIndex;
+                  const isSelectedDay = checkDateIsEqual(
+                    day.date,
+                    state.selectedDay.date
+                  );
+                  const isAdditionalDay =
+                    day.monthIndex !== state.selectedMonth.monthIndex;
 
                   return (
                     <div
@@ -74,11 +78,17 @@ export const Calendar: React.FC<CalendarProps> = ({
                           setState((prevState: State) => ({
                             ...prevState,
                             dateTime: '',
-                            time: ''
+                            time: '',
                           }));
                         }
                       }}
-                      style={isToday ? {} : day.date >= currentDay ? {} : { opacity: 0.5 }}
+                      style={
+                        isToday
+                          ? {}
+                          : day.date >= currentDay
+                            ? {}
+                            : { opacity: 0.5 }
+                      }
                       className={[
                         styles.calendar__day,
                         day.date >= currentDay ? styles.calendar__day_pick : '',
@@ -99,21 +109,30 @@ export const Calendar: React.FC<CalendarProps> = ({
       {state.filteredTimeIntervals.map((item, index) => {
         return (
           <div className={styles.timeContainer} key={index}>
-            <div className={styles.timeTitle}><p>{item.title}</p></div>
+            <div className={styles.timeTitle}>
+              <p>{item.title}</p>
+            </div>
 
-            <div className={styles.times}>{item.times.map((time, indx) => (
-              <div onClick={() => {
-                setState((prevState) => ({...prevState, time}));
-              }} key={indx} className={[
-                styles.time,
-                time === selectedTime.time ? styles.time__selected__item : ''
-              ].join(' ')}>
-                <p>{time}</p>
-              </div>
-            ))}
+            <div className={styles.times}>
+              {item.times.map((time, indx) => (
+                <div
+                  onClick={() => {
+                    setState((prevState) => ({ ...prevState, time }));
+                  }}
+                  key={indx}
+                  className={[
+                    styles.time,
+                    time === selectedTime.time
+                      ? styles.time__selected__item
+                      : '',
+                  ].join(' ')}
+                >
+                  <p>{time}</p>
+                </div>
+              ))}
             </div>
           </div>
-        )
+        );
       })}
     </div>
   );

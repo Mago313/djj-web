@@ -34,6 +34,6 @@ export const createYear = (params?: CreateYearParams) => {
   return {
     createYearMonthes,
     month,
-    year
+    year,
   };
 };

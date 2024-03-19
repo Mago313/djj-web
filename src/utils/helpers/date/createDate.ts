@@ -35,6 +35,6 @@ export const createDate = (params?: CreateDateParams) => {
     monthNumber,
     monthIndex,
     timestamp,
-    week
+    week,
   };
 };

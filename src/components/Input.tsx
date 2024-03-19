@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type TProps = {
   type: string;
@@ -7,10 +7,17 @@ type TProps = {
   onChange: () => void;
   multiple?: boolean;
   placeholder: string;
-  style: string
+  style: string;
 };
 
-const Input = ({ value, onChange, placeholder, type, multiple, style }: TProps) => {
+const Input = ({
+  value,
+  onChange,
+  placeholder,
+  type,
+  multiple,
+  style,
+}: TProps) => {
   return (
     <input
       className={style}

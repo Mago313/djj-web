@@ -1,27 +1,27 @@
-import axios from "axios";
-import Cookies from "js-cookie"
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
-export const baseURL = "http://localhost:2222";
+export const baseURL = 'http://server.umardjj.ru';
 
 export const baseService = axios.create({
   baseURL,
 });
 
 export const logout = (): void => {
-  Cookies.remove("authorization");
+  Cookies.remove('authorization');
 };
 
 export const accessToken = (accessToken: string) => {
   baseService.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-  Cookies.set("accessToken", accessToken);
+  Cookies.set('accessToken', accessToken);
 };
 
 export const refreshToken = (refreshToken: string) => {
   baseService.defaults.headers.common.Authorization = `Bearer ${refreshToken}`;
-  Cookies.set("refreshToken", refreshToken);
+  Cookies.set('refreshToken', refreshToken);
 };
 
-export const accToken = Cookies.get("accessToken");
+export const accToken = Cookies.get('accessToken');
 
 baseService.interceptors.response.use(
   (res) => res,

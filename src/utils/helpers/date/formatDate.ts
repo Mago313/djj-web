@@ -1,6 +1,6 @@
 import { createDate } from './createDate';
 
-export const formatDate = ( date: Date, format: string) => {
+export const formatDate = (date: Date, format: string) => {
   const d = createDate({ date, locale: 'ru' });
 
   return format

@@ -1,14 +1,14 @@
-.card { 
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    background: #ffffff;
-    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
-    border-radius: 18px;
-    animation: fadeIn ease 3s;
-    margin-top: 20px;
-    
-    .div {
-        width: 30px;
-    }
+.card {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  background: #ffffff;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  animation: fadeIn ease 3s;
+  margin-top: 20px;
+
+  .div {
+    width: 30px;
+  }
 }

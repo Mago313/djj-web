@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { IShippingFields } from "../types/admin";
-import { baseService, accessToken } from "../api/api";
-import Cookies from "js-cookie";
+import { IShippingFields } from '../types/admin';
+import { baseService, accessToken } from '../api/api';
+import Cookies from 'js-cookie';
 
 interface AdminState {
   isAdmin: boolean;
@@ -15,14 +15,14 @@ const initialState: AdminState = {
   loading: false,
   isAdmin: false,
   isDayOff: false,
-  error: "",
+  error: '',
 };
 
 export const signIn = createAsyncThunk(
-  "token/getToken",
+  'token/getToken',
   async (admin: IShippingFields, thunkAPI) => {
     try {
-      const { data } = await baseService.post("/auth/login", admin);
+      const { data } = await baseService.post('/auth/login', admin);
       accessToken(data.accessToken);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
@@ -31,11 +31,11 @@ export const signIn = createAsyncThunk(
 );
 
 export const checkIsAdmin = createAsyncThunk(
-  "checkIsAdmin",
+  'checkIsAdmin',
   async (_, thunkAPI) => {
     try {
-       const accessToken = Cookies.get("accessToken");
-       return accessToken
+      const accessToken = Cookies.get('accessToken');
+      return accessToken;
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
     }
@@ -46,33 +46,33 @@ export const checkIsDayOff = createAsyncThunk(
   'checkIsDayOff',
   async (_, thunkAPI) => {
     try {
-      const {data} = await baseService.get('/auth/status')
-      return data.isDayOff
+      const { data } = await baseService.get('/auth/status');
+      return data.isDayOff;
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
     }
   }
-)
+);
 
 export const dayOff = createAsyncThunk(
   'dayOff',
-  async (isDayOff: boolean, thunkAPI) => {    
+  async (isDayOff: boolean, thunkAPI) => {
     try {
-      const {data} = await baseService.post('/auth/status', {isDayOff})
-      return data.isDayOff
+      const { data } = await baseService.post('/auth/status', { isDayOff });
+      return data.isDayOff;
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
     }
   }
-)
+);
 
 export const adminSlice = createSlice({
-  name: "admin",
+  name: 'admin',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(checkIsAdmin.fulfilled, (state, action) => {
-      if(action.payload){
+      if (action.payload) {
         state.isAdmin = true;
       } else {
         state.isAdmin = false;
@@ -91,17 +91,17 @@ export const adminSlice = createSlice({
       state.error = action.payload;
     });
     builder.addCase(checkIsDayOff.pending, (state) => {
-      state.loading = true
-    })
+      state.loading = true;
+    });
     builder.addCase(checkIsDayOff.fulfilled, (state, action) => {
       state.isDayOff = action.payload;
-      state.loading = false
-    })
+      state.loading = false;
+    });
     builder.addCase(dayOff.fulfilled, (state, action) => {
       state.isDayOff = action.payload;
-      state.isAdmin = true
-    })
+      state.isAdmin = true;
+    });
   },
 });
 
-export default adminSlice.reducer;      
+export default adminSlice.reducer;
