@@ -52,9 +52,6 @@ const DatePage = ({ state, modalActive, setModalActive, setState }: TProps) => {
         <div className={styles.date__container}>
           {formatDate(selectedDate, `DDD DD MMM YYYY ${state.time}`)}
         </div>
-        <div className={styles.date__container}>
-          {formatDate(selectedDate, `DDD DD MMM YYYY ${state.time}`)}
-        </div>
         <Calendar
           locale="ru"
           selectDate={selectDate}
