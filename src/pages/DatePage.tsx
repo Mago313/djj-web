@@ -6,8 +6,6 @@ import { Calendar } from '../components/Calendar';
 import { formatDate } from '../utils/helpers/date';
 import { State } from '../types/state';
 import { Navigate } from '../components/Navigate';
-import { CheckBox } from '../components/CheckBox';
-import { useAppSelector } from '../store/store';
 
 type TProps = {
   state: State;
@@ -16,26 +14,7 @@ type TProps = {
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export type TStatus = {
-  workingHours: 'break' | 'atWork' | 'dayOff';
-  breakTime: {
-    start: string | null;
-    end: string | null;
-  };
-};
-
 const DatePage = ({ state, modalActive, setModalActive, setState }: TProps) => {
-  const [status, setStatus] = React.useState<TStatus>({
-    workingHours: 'atWork',
-    breakTime: {
-      start: null,
-      end: null,
-    },
-  });
-
-  const { loading, isAdmin, error } = useAppSelector(
-    (state) => state.adminSlice
-  );
 
   const [selectedDate, selectDate] = React.useState(new Date());
 
@@ -67,50 +46,15 @@ const DatePage = ({ state, modalActive, setModalActive, setState }: TProps) => {
     }
   }, [selectedDate, state.time]);
 
-  const onChange = (label?: 'Выходной' | 'Перерыв' | 'На работе') => {
-    if (label === 'Выходной') {
-      setStatus((prevStatus) => ({
-        ...prevStatus,
-        workingHours: 'dayOff',
-        breakTime: {
-          start: '',
-          end: '',
-        },
-      }));
-    } else if (label === 'На работе') {
-      setStatus((prevStatus) => ({
-        ...prevStatus,
-        workingHours: 'atWork',
-        breakTime: {
-          start: null,
-          end: null,
-        },
-      }));
-    } else if (label === 'Перерыв') {
-      setStatus((prevStatus) => ({
-        ...prevStatus,
-        workingHours: 'break',
-        breakTime: {
-          start: '',
-          end: '',
-        },
-      }));
-    }
-  };
-
   return (
     <MainLayout title="Время" isArrow>
       <div className={styles.container}>
         <div className={styles.date__container}>
           {formatDate(selectedDate, `DDD DD MMM YYYY ${state.time}`)}
         </div>
-        {status.workingHours === 'break' || status.workingHours === 'dayOff' ? (
-          <div className={styles.date__container}>
-            {formatDate(selectedDate, `DDD DD MMM YYYY ${state.time}`)}
-          </div>
-        ) : (
-          <></>
-        )}
+        <div className={styles.date__container}>
+          {formatDate(selectedDate, `DDD DD MMM YYYY ${state.time}`)}
+        </div>
         <Calendar
           locale="ru"
           selectDate={selectDate}

@@ -26,33 +26,31 @@ export const Navigate = ({
   ) {
     return (
       <div>
-        {
-          <Link
-            style={{ textDecoration: 'none' }}
-            to={
-              state.dateTime && state.cards?.length !== 0
-                ? ''
-                : state.dateTime
-                  ? '/categories'
-                  : '/date'
+        <Link
+          style={{ textDecoration: 'none' }}
+          to={
+            state.dateTime && state.cards?.length !== 0
+              ? ''
+              : state.dateTime
+                ? '/categories'
+                : '/date'
+          }
+        >
+          <Button
+            title={
+              state.cards?.length && state.dateTime
+                ? 'Продолжить'
+                : state.cards?.length || state.dateTime
+                  ? 'Далее'
+                  : ''
             }
-          >
-            <Button
-              title={
-                state.cards?.length && state.dateTime
-                  ? 'Продолжить'
-                  : state.cards?.length || state.dateTime
-                    ? 'Далее'
-                    : ''
+            onClick={() => {
+              if (state.price && state.dateTime) {
+                setModalActive(!modalActive);
               }
-              onClick={() => {
-                if (state.price && state.dateTime) {
-                  setModalActive(!modalActive);
-                }
-              }}
-            />
-          </Link>
-        }
+            }}
+          />
+        </Link>
         {state.dateTime && state.cards?.length !== 0 && modalActive && (
           <Modal
             active={modalActive}
