@@ -31,14 +31,16 @@ const Modal = ({ active, setActive, setState, state }: TProps) => {
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     const name = event.target.value;
     const isValidName = /^[а-яА-Я]+$/u.test(name);
-    const formattedName = isValidName
-      ? name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
-      : name;
+    const isNameLengthValid = name.length >= 3;
+    const formattedName =
+      isValidName && isNameLengthValid
+        ? name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
+        : name;
     setState((prevState) => ({
       ...prevState,
       name: formattedName,
     }));
-    setIsValidName(isValidName);
+    setIsValidName(isValidName && isNameLengthValid);
   };
 
   const createAppointment = async (data: State) => {
@@ -57,7 +59,8 @@ const Modal = ({ active, setActive, setState, state }: TProps) => {
       setMemoizedState(state);
       const nameIsValid = /^[а-яА-Я]+$/u.test(state.name);
       const phoneIsValid = state.phone.toString().length === 11;
-      setIsValidName(nameIsValid);
+      const isNameLengthValid = state.name.length >= 3;
+      setIsValidName(nameIsValid && isNameLengthValid);
       setIsValidPhone(phoneIsValid);
     }
   }, [active, state]);
@@ -101,11 +104,14 @@ const Modal = ({ active, setActive, setState, state }: TProps) => {
           </div>
         ) : (
           <>
-            <div className={styles.ui__wrapper}>
+            <div
+              style={{ border: isValidName ? '1px solid green' : undefined }}
+              className={styles.ui__wrapper}
+            >
               <div className={styles.input__wrapper}>
                 <legend>
                   <label
-                    className={isValidName ? undefined : styles.erorr}
+                    className={isValidName ? styles.valid : styles.erorr}
                     form="phonenumber"
                   >
                     {isValidName ? 'Введите имя*' : 'Введите корректное имя*'}
@@ -121,10 +127,13 @@ const Modal = ({ active, setActive, setState, state }: TProps) => {
                 </div>
               </div>
             </div>
-            <div className={styles.ui__wrapper}>
+            <div
+              style={{ border: isValidPhone ? '1px solid green' : undefined }}
+              className={styles.ui__wrapper}
+            >
               <label className={styles.dropdown__container}>🇷🇺</label>
               <div className={styles.input__wrapper}>
-                <legend>
+                <legend className={isValidPhone ? styles.valid : styles.erorr}>
                   <label form="phonenumber">Введите номер телефона*</label>
                 </legend>
                 <div className={styles.textfield}>

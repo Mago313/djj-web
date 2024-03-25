@@ -13,7 +13,13 @@ const MenuBlock = ({ name, img, link }: TProps) => {
     <Link style={{ textDecoration: 'none' }} to={`${link}`}>
       <div className={styles.card}>
         <div className={styles.photo}>
-          <img src={img} alt="" width={60} height={60} />
+          <img
+            style={{ marginLeft: 20 }}
+            src={img}
+            alt=""
+            width={60}
+            height={60}
+          />
         </div>
         <div className={styles.text}>{name}</div>
       </div>
