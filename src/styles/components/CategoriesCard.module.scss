@@ -5,6 +5,7 @@
   border-radius: 18px;
   animation: fadeIn ease 3s;
   padding: 8px;
+
   div {
     font-family: 'roboto';
     font-style: normal;
@@ -80,4 +81,18 @@
 .phone {
   color: #306289;
   text-decoration: none;
+}
+
+.hide__container {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 5s ease;
+}
+
+.hide__container.open {
+  max-height: 300px;
+}
+
+.hide {
+  transition: opacity 3s ease;
 }

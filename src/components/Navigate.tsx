@@ -37,6 +37,7 @@ export const Navigate = ({
           }
         >
           <Button
+            isLoading={false}
             title={
               state.cards?.length && state.dateTime
                 ? 'Продолжить'

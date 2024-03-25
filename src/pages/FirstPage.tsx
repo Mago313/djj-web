@@ -48,6 +48,7 @@ const FirstPage = ({
           <Spacing>
             {state.price && state.dateTime ? (
               <Button
+                isLoading={false}
                 onClick={() => {
                   setModalActive(!modalActive);
                 }}

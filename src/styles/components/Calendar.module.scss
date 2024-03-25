@@ -18,15 +18,15 @@
 }
 
 .calendar__header__arrow__left {
-  width: 5px;
-  height: 10px;
+  width: 8px;
+  height: 16px;
   cursor: pointer;
   background-image: var(--images-arrow);
 }
 
 .calendar__header__arrow__right {
-  width: 5px;
-  height: 10px;
+  width: 8px;
+  height: 16px;
   cursor: pointer;
   background-image: var(--images-arrow);
   transform: rotate(-180deg);
@@ -135,7 +135,10 @@
   height: 45px;
   align-items: center;
   font-weight: 700;
-  font-family: 'Roboto';
+  display: flex;
+  justify-content: space-between;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .time {
@@ -148,7 +151,7 @@
 
   p {
     font-style: normal;
-    font-family: 'sans-serif', sans-serif;
+
     text-align: center;
     font-weight: 500;
   }
@@ -163,4 +166,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   text-align: center;
+}
+
+.empty {
+  width: 6px;
+  height: 20px;
 }

@@ -64,7 +64,7 @@ const AuthorizationPage = () => {
               placeholder="Введите пароль"
             />
           </div>
-          <Button title="Войти" onClick={() => onSubmit} />
+          <Button isLoading={false} title="Войти" onClick={() => onSubmit} />
         </form>
       </div>
     </MainLayout>

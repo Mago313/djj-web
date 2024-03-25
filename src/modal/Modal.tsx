@@ -50,7 +50,7 @@ const Modal = ({ active, setActive, setState, state }: TProps) => {
     return responseData;
   };
 
-  const { mutate, data } = useMutation(createAppointment, {});
+  const { mutate, data, isLoading } = useMutation(createAppointment, {});
 
   useMemo(() => {
     if (active && state.name && state.phone) {
@@ -146,6 +146,8 @@ const Modal = ({ active, setActive, setState, state }: TProps) => {
         >
           <Button
             disabled={isDisabled}
+            btnWidth={262}
+            isLoading={isLoading}
             onClick={
               data?.appointment?.isActive
                 ? closeModal
@@ -185,4 +187,3 @@ const Modal = ({ active, setActive, setState, state }: TProps) => {
 };
 
 export default Modal;
-

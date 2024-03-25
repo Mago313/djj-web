@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { checkDateIsEqual, checkIsToday } from '../utils/helpers/date';
 import { useCalendar } from '../hooks/useCalendar';
 import styles from '../styles/components/Calendar.module.scss';
 import { State } from '../types/state';
+import arrow from '../assets/arrow.svg';
 
 interface CalendarProps {
   locale?: string;
@@ -109,28 +110,46 @@ export const Calendar: React.FC<CalendarProps> = ({
       {state.filteredTimeIntervals.map((item, index) => {
         return (
           <div className={styles.timeContainer} key={index}>
-            <div className={styles.timeTitle}>
+            <div
+              onClick={() => functions.toggleOpen(item.title)}
+              className={styles.timeTitle}
+            >
+              <div className={styles.empty}></div>
               <p>{item.title}</p>
+              <img
+                src={arrow}
+                alt=""
+                width={21}
+                height={21}
+                style={{
+                  transform: state.isOpen.includes(item.title)
+                    ? 'rotate(90deg)'
+                    : 'rotate(270deg)',
+                  transition: 'transform 0.4s',
+                }}
+              />
             </div>
 
-            <div className={styles.times}>
-              {item.times.map((time, indx) => (
-                <div
-                  onClick={() => {
-                    setState((prevState) => ({ ...prevState, time }));
-                  }}
-                  key={indx}
-                  className={[
-                    styles.time,
-                    time === selectedTime.time
-                      ? styles.time__selected__item
-                      : '',
-                  ].join(' ')}
-                >
-                  <p>{time}</p>
-                </div>
-              ))}
-            </div>
+            {!state.isOpen.includes(item.title) && (
+              <div className={styles.times}>
+                {item.times.map((time, indx) => (
+                  <div
+                    onClick={() => {
+                      setState((prevState) => ({ ...prevState, time }));
+                    }}
+                    key={indx}
+                    className={[
+                      styles.time,
+                      time === selectedTime.time
+                        ? styles.time__selected__item
+                        : '',
+                    ].join(' ')}
+                  >
+                    <p>{time}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         );
       })}

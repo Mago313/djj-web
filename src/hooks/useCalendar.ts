@@ -41,6 +41,7 @@ export const useCalendar = ({
   selectedDate: date,
   firstWeekDayNumber = 2,
 }: UseCalendarParams) => {
+  const [isOpen, setIsOpen] = React.useState<string[]>([]);
   const [mode, setMode] = React.useState<'days' | 'monthes' | 'years'>('days');
   const [selectedDay, setSelectedDay] = React.useState(createDate({ date }));
   const [selectedMonth, setSelectedMonth] = React.useState(
@@ -117,6 +118,16 @@ export const useCalendar = ({
 
     setFilteredTimeIntervals(updatedIntervals);
   }, [selectedDateFormatted, data, currentDate]);
+
+  const toggleOpen = (title: string) => {
+    setIsOpen((prevState) => {
+      if (prevState.includes(title)) {
+        return prevState.filter((item) => item !== title);
+      } else {
+        return [...prevState, title];
+      }
+    });
+  };
 
   const monthesNames = React.useMemo(() => getMonthesNames(locale), []);
   const weekDaysNames = React.useMemo(
@@ -254,6 +265,7 @@ export const useCalendar = ({
   return {
     state: {
       mode,
+      isOpen,
       calendarDays,
       weekDaysNames,
       monthesNames,
@@ -271,6 +283,7 @@ export const useCalendar = ({
       setSelectedMonthByIndex,
       setSelectedYear,
       setSelectedYearsInterval,
+      toggleOpen,
     },
   };
 };
