@@ -133,6 +133,7 @@ const Modal = ({ active, setActive, setState, state }: TProps) => {
                     value={state.phone}
                     onChange={handlePhoneChange}
                     placeholder="+7 (___) ___-__-__"
+                    inputMode="numeric"
                   />
                 </div>
               </div>

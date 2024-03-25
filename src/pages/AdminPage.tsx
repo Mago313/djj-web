@@ -52,9 +52,7 @@ const AdminPage = () => {
     <MainLayout title="Записи" subtitle="Приостановить записи" isArrow>
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
+          textAlign: 'center',
         }}
       >
         <input
@@ -83,11 +81,11 @@ const AdminPage = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '8px'
+                    padding: '8px',
                   }}
                 >
                   <div>
-                    <p style={{marginTop: 8}}>{item.name}</p>
+                    <p style={{ marginTop: 8 }}>{item.name}</p>
                     <PhoneNumber phoneNumber={item.phone} />
                   </div>
 
