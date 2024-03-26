@@ -29,7 +29,9 @@ const FirstPage = ({
     return (
       <MainLayout title="DJJ" subtitle="Уход за мужским имиджем">
         <Spacing>
-          <h4>Админ временно приостановил записи</h4>
+          <h4 style={{ paddingTop: 150 }}>
+            Админ временно приостановил записи
+          </h4>
         </Spacing>
       </MainLayout>
     );

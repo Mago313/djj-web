@@ -3,7 +3,7 @@ import styles from '../styles/modal/Modal.module.scss';
 import { State } from '../types/state';
 import { Button } from '../components/Button';
 import InputMask from 'react-input-mask';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { baseService } from '../api/api';
 import { useMutation } from 'react-query';
 
@@ -18,6 +18,7 @@ const Modal = ({ active, setActive, setState, state }: TProps) => {
   const [isValidName, setIsValidName] = useState<boolean>(false);
   const [isValidPhone, setIsValidPhone] = useState<boolean>(false);
   const [memoizedState, setMemoizedState] = useState<State | null>(null);
+  const redirect = useNavigate();
 
   const handlePhoneChange = (event: ChangeEvent<HTMLInputElement>) => {
     const sanitizedValue = event.target.value.replace(/\D/g, '');
@@ -97,9 +98,11 @@ const Modal = ({ active, setActive, setState, state }: TProps) => {
                 textAlign: 'center',
               }}
             >
-              {!data?.appointment?.isActive
-                ? 'Выбранное время уже занято!'
-                : 'Вы успешно записались!'}
+              {data?.appointment?.isActive
+                ? 'Вы успешно записались!'
+                : data?.message === 'Day off'
+                  ? 'Админ приостановил записи'
+                  : 'Выбранное время уже занято!'}
             </h3>
           </div>
         ) : (
@@ -152,40 +155,40 @@ const Modal = ({ active, setActive, setState, state }: TProps) => {
 
         <Link
           style={{ textDecoration: 'none' }}
-          to={data?.message ? '/date' : ''}
+          to={data?.message === 'Date already exists' ? '/date' : ''}
         >
           <Button
             disabled={isDisabled}
             btnWidth={262}
             isLoading={isLoading}
-            onClick={
-              data?.appointment?.isActive
-                ? closeModal
-                : data?.message
-                  ? () => {
-                      setActive(false);
-                      setState((prevData) => ({
-                        ...prevData,
-                        dateTime: '',
-                        time: '',
-                      }));
-                    }
-                  : () => {
-                      mutate(
-                        memoizedState ?? {
-                          cards: state.cards,
-                          dateTime: state.dateTime,
-                          name: state.name,
-                          phone: state.phone,
-                          price: state.price,
-                        }
-                      );
-                    }
-            }
+            onClick={() => {
+              if (data?.appointment?.isActive) {
+                closeModal();
+              } else if (data?.message === 'Date already exists') {
+                setActive(false);
+                setState((prevData) => ({
+                  ...prevData,
+                  dateTime: '',
+                  time: '',
+                }));
+              } else if (data?.message === 'Day off') {
+                setActive(false);
+              } else {
+                mutate(
+                  memoizedState ?? {
+                    cards: state.cards,
+                    dateTime: state.dateTime,
+                    name: state.name,
+                    phone: state.phone,
+                    price: state.price,
+                  }
+                );
+              }
+            }}
             title={
-              data?.message
+              data?.message === 'Date already exists'
                 ? 'Выбрать другое время'
-                : data?.appointment?.isActive
+                : data?.appointment?.isActive || data?.message === 'Day off'
                   ? 'Закрыть'
                   : 'Записаться'
             }

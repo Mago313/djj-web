@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-export const baseURL = 'https://server.umardjj.ru';
+export const baseURL = 'http://localhost:2222';
 
 export const baseService = axios.create({
   baseURL,

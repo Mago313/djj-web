@@ -37,7 +37,14 @@ const MainLayout: React.FC<Props> = ({
               {isArrow && <img src={arrow} alt="" width={10} height={15} />}
             </button>
 
-            <img src={logo} alt="" width={40} height={40} />
+            <img
+              onClick={() => navigate('/', { replace: true })}
+              src={logo}
+              alt=""
+              width={40}
+              height={40}
+            />
+
             {isAdmin ? (
               <Link to="/admin" className={styles.admin}>
                 {<img src={admin} alt="" width={21} height={21} />}
