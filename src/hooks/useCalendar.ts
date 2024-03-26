@@ -10,8 +10,7 @@ import {
 } from '../utils/helpers/date';
 import { baseService } from '../api/api';
 import { useQuery } from 'react-query';
-import { isAfter, parse, set, addMinutes } from 'date-fns';
-import { useAppSelector } from '../store/store';
+import { isAfter, parse, set } from 'date-fns';
 
 interface UseCalendarParams {
   locale?: string;
@@ -54,7 +53,8 @@ export const useCalendar = ({
   const [selectedYearsInterval, setSelectedYearsInterval] = React.useState(
     getYearsInterval(selectedDay.year)
   );
-  const { data } = useQuery('time', getTimes);
+
+  const { data, isLoading } = useQuery('time', getTimes, {});
 
   const timeIntervals: ITimeIntervals[] = [
     { title: 'Утро', times: ['10:00', '11:00', '12:00'] },
@@ -78,7 +78,7 @@ export const useCalendar = ({
   React.useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentDate(new Date());
-    }, 30000);
+    }, 60000);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -255,6 +255,7 @@ export const useCalendar = ({
     state: {
       mode,
       isOpen,
+      isLoading,
       calendarDays,
       weekDaysNames,
       monthesNames,
