@@ -57,25 +57,14 @@ export const useCalendar = ({
   const { data } = useQuery('time', getTimes);
 
   const timeIntervals: ITimeIntervals[] = [
-    { title: 'Утро', times: ['10:20', '11:00', '11:40'] },
+    { title: 'Утро', times: ['10:00', '11:00', '12:00'] },
     {
       title: 'День',
-      times: ['12:20', '13:00', '13:40', '14:20', '15:00', '15:40'],
+      times: ['13:00', '14:00', '15:00'],
     },
     {
       title: 'Вечер',
-      times: [
-        '16:20',
-        '17:00',
-        '17:40',
-        '18:20',
-        '19:00',
-        '19:40',
-        '20:20',
-        '21:00',
-        '21:40',
-        '22:20',
-      ],
+      times: ['16:00', '17:00', '18:00', '19:00', '20:00', '21:00'],
     },
   ];
   const selectedDateFormatted = formatDate(selectedDay.date, 'YYYY-MM-DD');
