@@ -1,5 +1,5 @@
 import MainLayout from '../layouts/Mainlayout';
-import { baseService } from '../api/api';
+import { accessToken, baseService } from '../api/api';
 import { useMutation, useQuery } from 'react-query';
 import styles from '../styles/components/CategoriesCard.module.scss';
 import { Appointment } from '../types/category';
@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../store/store';
 import { dayOff } from '../store/adminSlise';
 import PhoneNumber from '../utils/helpers/formatPhone';
 import arrow from '../assets/arrow.svg';
+import Cookies from 'js-cookie';
 
 const formatter = new Intl.DateTimeFormat('ru', {
   year: 'numeric',
@@ -19,7 +20,10 @@ const formatter = new Intl.DateTimeFormat('ru', {
 });
 
 async function fetchAppointments() {
-  const { data } = await baseService.get('/appointments/get');
+  const accessToken = Cookies.get('accessToken');
+  const { data } = await baseService.get('/appointments/get', {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
 
   return data;
 }

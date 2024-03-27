@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { IShippingFields } from '../types/admin';
-import { baseService, accessToken } from '../api/api';
+import { baseService, accessToken, refreshToken } from '../api/api';
 import Cookies from 'js-cookie';
 
 interface AdminState {
@@ -24,6 +24,8 @@ export const signIn = createAsyncThunk(
     try {
       const { data } = await baseService.post('/auth/login', admin);
       accessToken(data.accessToken);
+      refreshToken(data.refreshToken);
+      return data.isAdmin;
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
     }
@@ -34,8 +36,15 @@ export const checkIsAdmin = createAsyncThunk(
   'checkIsAdmin',
   async (_, thunkAPI) => {
     try {
-      const accessToken = Cookies.get('accessToken');
-      return accessToken;
+      const token = Cookies.get('refreshToken');
+      if (token) {
+        const { data } = await baseService.post('auth/login/access-token', {
+          refreshToken: token,
+        });
+        accessToken(data.accessToken);
+        refreshToken(data.refreshToken);
+        return data;
+      }
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
     }
@@ -58,7 +67,12 @@ export const dayOff = createAsyncThunk(
   'dayOff',
   async (isDayOff: boolean, thunkAPI) => {
     try {
-      const { data } = await baseService.post('/auth/status', { isDayOff });
+      const accessToken = Cookies.get('accessToken');
+      const { data } = await baseService.post(
+        '/auth/status',
+        { isDayOff: isDayOff },
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
       return data.isDayOff;
     } catch (e) {
       return thunkAPI.rejectWithValue(e);
@@ -71,19 +85,23 @@ export const adminSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(checkIsAdmin.pending, (state) => {
+      state.loading = true;
+    });
     builder.addCase(checkIsAdmin.fulfilled, (state, action) => {
-      if (action.payload) {
-        state.isAdmin = true;
-      } else {
-        state.isAdmin = false;
-      }
+      state.isAdmin = action.payload?.user?.isAdmin;
+      state.loading = false;
+    });
+    builder.addCase(checkIsAdmin.rejected, (state) => {
+      state.isAdmin = false;
+      state.loading = false;
     });
     builder.addCase(signIn.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(signIn.fulfilled, (state) => {
+    builder.addCase(signIn.fulfilled, (state, action) => {
       state.loading = false;
-      state.isAdmin = true;
+      state.isAdmin = action.payload;
     });
     builder.addCase(signIn.rejected, (state, action) => {
       state.loading = false;
