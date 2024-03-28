@@ -29,7 +29,7 @@ export const Button = ({
         <img
           className={imgStyles.rot}
           width={20}
-          height={20}
+          height={19}
           src={loading}
           alt=""
         />
