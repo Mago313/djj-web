@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
 import { IShippingFields } from '../types/admin';
 import { baseService, accessToken, refreshToken } from '../api/api';
 import Cookies from 'js-cookie';

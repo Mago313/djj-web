@@ -7,6 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { StateProvider } from './hooks/useStateContext';
+import { ModalProvider } from './hooks/useModalVisible';
 
 const queryClient = new QueryClient();
 
@@ -17,7 +19,11 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <ModalProvider>
+          <StateProvider>
+            <App />
+          </StateProvider>
+        </ModalProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </Provider>

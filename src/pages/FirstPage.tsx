@@ -5,26 +5,19 @@ import date from '../assets/date.svg';
 import services from '../assets/checkMark.png';
 import Modal from '../modal/Modal';
 import { Button } from '../components/Button';
-import AdminPage from './AdminPage';
 import { State } from '../types/state';
 import { Spacing } from '../utils/helpers/Spacing';
 import MenuBlock from '../components/MenuBlock';
+import { useStateContext } from '../hooks/useStateContext';
+import { useModalContext } from '../hooks/useModalVisible';
 
 type TProps = {
-  state: State;
-  modalActive: boolean;
   isDayOff: boolean;
-  setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
-  setState: React.Dispatch<React.SetStateAction<State>>;
 };
 
-const FirstPage = ({
-  state,
-  isDayOff,
-  modalActive,
-  setModalActive,
-  setState,
-}: TProps) => {
+const FirstPage = ({ isDayOff }: TProps) => {
+  const { state } = useStateContext();
+  const { modalVisible, setModalVisible } = useModalContext();
   if (isDayOff) {
     return (
       <MainLayout title="DJJ" subtitle="Уход за мужским имиджем">
@@ -46,13 +39,13 @@ const FirstPage = ({
         <Spacing>
           <MenuBlock img={services} name="Услуги" link="/categories" />
         </Spacing>
-        {modalActive || (
+        {modalVisible || (
           <Spacing>
             {state.price && state.dateTime ? (
               <Button
                 isLoading={false}
                 onClick={() => {
-                  setModalActive(!modalActive);
+                  setModalVisible(!modalVisible);
                 }}
                 title="Продолжить"
               />
@@ -61,14 +54,7 @@ const FirstPage = ({
             )}
           </Spacing>
         )}
-        {modalActive && (
-          <Modal
-            active={modalActive}
-            setActive={setModalActive}
-            state={state}
-            setState={setState}
-          />
-        )}
+        {modalVisible && <Modal />}
       </div>
     </MainLayout>
   );

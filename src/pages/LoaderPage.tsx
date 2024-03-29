@@ -1,7 +1,5 @@
 import React from 'react';
-
-import logo from '../assets/djj (1).png';
-import loader from '../assets/djj (1).png';
+import logo from '../assets/djj.png';
 import umar from '../assets/umar.png';
 
 import styles from '../styles/pages/Loader.module.scss';
@@ -25,7 +23,7 @@ const LoaderPage: React.FC = () => {
             <p>уход за мужским имиджем</p>
           </div>
           <div>
-            <img className={styles.rot} src={loader} alt="" />
+            <img className={styles.rot} src={logo} alt="" />
           </div>
         </div>
       </div>

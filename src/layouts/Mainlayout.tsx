@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import arrow from '../assets/arrow.svg';
-import logo from '../assets/djj (1).png';
+import logo from '../assets/djj.png';
 import admin from '../assets/admin.png';
 
 import styles from '../styles/pages/MainlayoutPage.module.scss';

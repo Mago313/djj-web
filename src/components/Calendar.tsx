@@ -9,19 +9,19 @@ import imgStyles from '../styles/pages/Loader.module.scss';
 
 interface CalendarProps {
   locale?: string;
-  state: Pick<State, 'time'>;
+  selectedTime: string;
   selectedDate: Date;
   selectDate: (date: Date) => void;
   firstWeekDayNumber?: number;
-  setState: React.Dispatch<React.SetStateAction<State>>;
+  selectTime: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const Calendar: React.FC<CalendarProps> = ({
   locale = 'default',
   selectedDate: date,
-  state: selectedTime,
+  selectedTime,
   selectDate,
-  setState,
+  selectTime,
   firstWeekDayNumber = 2,
 }) => {
   const { functions, state } = useCalendar({
@@ -78,11 +78,6 @@ export const Calendar: React.FC<CalendarProps> = ({
                         if (isToday || day.date > currentDay) {
                           functions.setSelectedDay(day);
                           selectDate(day.date);
-                          setState((prevState: State) => ({
-                            ...prevState,
-                            dateTime: '',
-                            time: '',
-                          }));
                         }
                       }}
                       style={
@@ -142,12 +137,12 @@ export const Calendar: React.FC<CalendarProps> = ({
                   {item.times.map((time, indx) => (
                     <div
                       onClick={() => {
-                        setState((prevState) => ({ ...prevState, time }));
+                        selectTime(time);
                       }}
                       key={indx}
                       className={[
                         styles.time,
-                        time === selectedTime.time
+                        time === selectedTime
                           ? styles.time__selected__item
                           : '',
                       ].join(' ')}

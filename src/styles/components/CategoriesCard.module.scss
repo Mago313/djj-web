@@ -3,7 +3,6 @@
   background: #ffffff;
   box-shadow: 2px 8px 40px rgba(0, 0, 0, 0.08);
   border-radius: 18px;
-  animation: fadeIn ease 3s;
   padding: 8px;
 
   div {
@@ -25,15 +24,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-decoration: none;
-  }
-
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
   }
 }
 

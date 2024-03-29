@@ -4,5 +4,4 @@ export type State = {
   price?: number;
   dateTime?: string;
   phone?: number;
-  time?: string;
 };

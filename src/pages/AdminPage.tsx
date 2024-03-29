@@ -10,7 +10,7 @@ import PhoneNumber from '../utils/helpers/formatPhone';
 import arrow from '../assets/arrow.svg';
 import Cookies from 'js-cookie';
 
-const formatter = new Intl.DateTimeFormat('ru', {
+export const formatter = new Intl.DateTimeFormat('ru', {
   year: 'numeric',
   month: 'short',
   day: 'numeric',

@@ -5,13 +5,7 @@ import addition from '../assets/addition.svg';
 import { State } from '../types/state';
 import { Categories, Category } from '../types/category';
 import { Navigate } from '../components/Navigate';
-
-type TProps = {
-  state: State;
-  setState: React.Dispatch<React.SetStateAction<State>>;
-  modalActive: boolean;
-  setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import { useStateContext } from '../hooks/useStateContext';
 
 const categories: Categories = [
   {
@@ -28,12 +22,8 @@ const categories: Categories = [
   },
 ];
 
-const CategoriesPage = ({
-  setState,
-  state,
-  modalActive,
-  setModalActive,
-}: TProps) => {
+const CategoriesPage = () => {
+  const { state, setState } = useStateContext();
   const [isRotated, setRotated] = React.useState(false);
 
   const actions = {
@@ -103,7 +93,7 @@ const CategoriesPage = ({
                       transform: state.cards?.includes(item.card)
                         ? 'rotate(45deg)'
                         : 'rotate(0deg)',
-                      transition: 'transform 0.4s',
+                      transition: 'transform 0.2s',
                     }}
                     alt=""
                     src={addition}
@@ -115,13 +105,7 @@ const CategoriesPage = ({
           );
         })}
       </div>
-      <Navigate
-        page="Categories"
-        modalActive={modalActive}
-        setModalActive={setModalActive}
-        state={state}
-        setState={setState}
-      />
+      <Navigate page="Categories" />
     </MainLayout>
   );
 };
