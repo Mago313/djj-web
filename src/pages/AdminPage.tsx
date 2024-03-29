@@ -1,13 +1,13 @@
-import MainLayout from '../layouts/Mainlayout';
-import { accessToken, baseService } from '../api/api';
-import { useMutation, useQuery } from 'react-query';
 import styles from '../styles/components/CategoriesCard.module.scss';
-import { Appointment } from '../types/category';
-import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/store';
-import { dayOff } from '../store/adminSlise';
 import PhoneNumber from '../utils/helpers/formatPhone';
+import { useMutation, useQuery } from 'react-query';
+import { Appointment } from '../types/category';
+import MainLayout from '../layouts/Mainlayout';
+import { dayOff } from '../store/adminSlise';
+import { baseService } from '../api/api';
 import arrow from '../assets/arrow.svg';
+import { useState } from 'react';
 import Cookies from 'js-cookie';
 
 export const formatter = new Intl.DateTimeFormat('ru', {

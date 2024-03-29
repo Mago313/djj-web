@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from '../assets/djj.png';
 import umar from '../assets/umar.png';
-
 import styles from '../styles/pages/Loader.module.scss';
 
 const LoaderPage: React.FC = () => {

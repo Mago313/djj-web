@@ -1,11 +1,10 @@
-import React from 'react';
-import MainLayout from '../layouts/Mainlayout';
 import styles from '../styles/components/CategoriesCard.module.scss';
-import addition from '../assets/addition.svg';
-import { State } from '../types/state';
+import { useStateContext } from '../hooks/useStateContext';
 import { Categories, Category } from '../types/category';
 import { Navigate } from '../components/Navigate';
-import { useStateContext } from '../hooks/useStateContext';
+import MainLayout from '../layouts/Mainlayout';
+import addition from '../assets/addition.svg';
+import React from 'react';
 
 const categories: Categories = [
   {
@@ -54,7 +53,7 @@ const CategoriesPage = () => {
   };
 
   return (
-    <MainLayout title="Услуги" isArrow>
+    <MainLayout title="Услуги" subtitle="Выберите услуги" isArrow>
       <div
         style={{
           display: 'flex',

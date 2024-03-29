@@ -1,23 +1,23 @@
-import React from 'react';
-import '../App.css';
-import MainLayout from '../layouts/Mainlayout';
-import date from '../assets/date.svg';
-import services from '../assets/checkMark.png';
-import Modal from '../modal/Modal';
-import { Button } from '../components/Button';
-import { State } from '../types/state';
+import { useModalContext } from '../hooks/useModalVisible';
+import { useStateContext } from '../hooks/useStateContext';
 import { Spacing } from '../utils/helpers/Spacing';
 import MenuBlock from '../components/MenuBlock';
-import { useStateContext } from '../hooks/useStateContext';
-import { useModalContext } from '../hooks/useModalVisible';
+import { useAppSelector } from '../store/store';
+import services from '../assets/checkMark.png';
+import MainLayout from '../layouts/Mainlayout';
+import { Button } from '../components/Button';
+import date from '../assets/date.svg';
+import LoaderPage from './LoaderPage';
+import Modal from '../modal/Modal';
+import '../App.css';
 
-type TProps = {
-  isDayOff: boolean;
-};
-
-const FirstPage = ({ isDayOff }: TProps) => {
+const FirstPage = () => {
   const { state } = useStateContext();
   const { modalVisible, setModalVisible } = useModalContext();
+  const { isDayOff, loading } = useAppSelector((state) => state.adminSlice);
+
+  if (loading) return <LoaderPage />;
+
   if (isDayOff) {
     return (
       <MainLayout title="DJJ" subtitle="Уход за мужским имиджем">

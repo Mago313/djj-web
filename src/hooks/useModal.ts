@@ -1,9 +1,9 @@
 import { ChangeEvent, useMemo, useState } from 'react';
-import { State } from '../types/state';
 import { useStateContext } from './useStateContext';
-import { baseService } from '../api/api';
 import { useModalContext } from './useModalVisible';
 import { useMutation } from 'react-query';
+import { baseService } from '../api/api';
+import { State } from '../types/state';
 
 export const useModal = () => {
   const { state, setState } = useStateContext();

@@ -1,12 +1,11 @@
-import React from 'react';
-import MainLayout from '../layouts/Mainlayout';
-import styles from '../styles/pages/DatePage.module.scss';
-import { Calendar } from '../components/Calendar';
-import { formatDate } from '../utils/helpers/date';
-import { State } from '../types/state';
-import { Navigate } from '../components/Navigate';
 import { formatDateISO } from '../utils/helpers/date/formatDateISO';
 import { useStateContext } from '../hooks/useStateContext';
+import styles from '../styles/pages/DatePage.module.scss';
+import { formatDate } from '../utils/helpers/date';
+import { Navigate } from '../components/Navigate';
+import { Calendar } from '../components/Calendar';
+import MainLayout from '../layouts/Mainlayout';
+import React from 'react';
 
 const DatePage = () => {
   const { setState } = useStateContext();
@@ -27,7 +26,7 @@ const DatePage = () => {
   }, [selectedDate, selectedTime]);
 
   return (
-    <MainLayout title="Время" subtitle="Выберите удобное вам время" isArrow>
+    <MainLayout title="Время" subtitle="Выберите время" isArrow>
       <div className={styles.container}>
         <div className={styles.date__container}>
           {formatDate(selectedDate, `DDD DD MMM YYYY ${selectedTime}`)}
