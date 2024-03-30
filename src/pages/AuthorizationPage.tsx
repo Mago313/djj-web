@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import styles from '../styles/pages/AuthorizationPage.module.scss';
@@ -42,6 +42,8 @@ const AuthorizationPage = () => {
 
   const { login, password } = watch();
 
+  const isDisabled = login?.length === 0 || password?.length === 0;
+
   return (
     <MainLayout title="Авторизация" isArrow>
       <div className={styles.formContainer}>
@@ -64,7 +66,12 @@ const AuthorizationPage = () => {
               placeholder="Введите пароль"
             />
           </div>
-          <Button isLoading={false} title="Войти" onClick={() => onSubmit} />
+          <Button
+            isDisabled={isDisabled}
+            isLoading={loading}
+            title="Войти"
+            onClick={() => onSubmit}
+          />
         </form>
       </div>
     </MainLayout>

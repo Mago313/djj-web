@@ -91,3 +91,13 @@
     right: 3px;
   }
 }
+
+@keyframes slideleft {
+  from {
+    margin-left: 100%;
+  }
+
+  to {
+    margin-left: 0%;
+  }
+}

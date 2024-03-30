@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { checkDateIsEqual, checkIsToday } from '../utils/helpers/date';
 import { useCalendar } from '../hooks/useCalendar';
 import styles from '../styles/components/Calendar.module.scss';
-import { State } from '../types/state';
 import arrow from '../assets/arrow.svg';
 import loading from '../assets/black-loading.svg';
 import imgStyles from '../styles/pages/Loader.module.scss';

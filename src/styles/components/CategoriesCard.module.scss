@@ -4,6 +4,8 @@
   box-shadow: 2px 8px 40px rgba(0, 0, 0, 0.08);
   border-radius: 18px;
   padding: 8px;
+  animation-duration: 1s;
+  animation-name: slidein;
 
   div {
     font-family: 'roboto';
@@ -85,4 +87,14 @@
 
 .hide {
   transition: opacity 3s ease;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+  }
+
+  to {
+    margin-left: 0%;
+  }
 }

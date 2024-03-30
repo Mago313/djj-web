@@ -27,9 +27,7 @@ export const useModal = () => {
     const isValidName = /^[а-яА-Я]+$/u.test(name);
     const isNameLengthValid = name.length >= 3;
     const formattedName =
-      isValidName && isNameLengthValid
-        ? name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
-        : name;
+      name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
     setState((prevState) => ({
       ...prevState,
       name: formattedName,

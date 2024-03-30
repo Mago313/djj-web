@@ -1,11 +1,11 @@
-import { formatDateISO } from '../utils/helpers/date/formatDateISO';
-import { useStateContext } from '../hooks/useStateContext';
-import styles from '../styles/pages/DatePage.module.scss';
-import { formatDate } from '../utils/helpers/date';
+import React from 'react';
+import MainLayout from '../layouts/Mainlayout';
 import { Navigate } from '../components/Navigate';
 import { Calendar } from '../components/Calendar';
-import MainLayout from '../layouts/Mainlayout';
-import React from 'react';
+import { formatDate } from '../utils/helpers/date';
+import styles from '../styles/pages/DatePage.module.scss';
+import { useStateContext } from '../hooks/useStateContext';
+import { formatDateISO } from '../utils/helpers/date/formatDateISO';
 
 const DatePage = () => {
   const { setState } = useStateContext();

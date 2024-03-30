@@ -1,11 +1,10 @@
-import React from 'react';
 import styles from '../styles/components/Button.module.scss';
 import imgStyles from '../styles/pages/Loader.module.scss';
 import loading from '../assets/loading.svg';
 
 type TProps = {
   title: string;
-  disabled?: boolean;
+  isDisabled?: boolean;
   isLoading: boolean;
   btnWidth?: number;
   onClick: any;
@@ -14,16 +13,16 @@ type TProps = {
 export const Button = ({
   title,
   btnWidth,
-  disabled,
+  isDisabled,
   isLoading,
   onClick,
 }: TProps) => {
   return (
     <button
-      disabled={disabled}
+      disabled={isDisabled}
       onClick={onClick}
       style={{ width: btnWidth }}
-      className={`${styles.formSubmitBtn} ${disabled ? styles.disabled : undefined}`}
+      className={`${styles.formSubmitBtn} ${isDisabled ? styles.disabled : undefined}`}
     >
       {isLoading ? (
         <img

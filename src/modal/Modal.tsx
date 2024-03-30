@@ -103,7 +103,7 @@ const Modal = () => {
           }
         >
           <Button
-            disabled={data.isDisabled}
+            isDisabled={data.isDisabled}
             btnWidth={262}
             isLoading={data.isLoading}
             onClick={functions.onSubmit}
