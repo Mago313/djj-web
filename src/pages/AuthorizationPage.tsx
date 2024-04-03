@@ -67,9 +67,9 @@ const AuthorizationPage = () => {
             />
           </div>
           <Button
-            isDisabled={isDisabled}
+            children={'Войти'}
+            disabled={isDisabled}
             isLoading={loading}
-            title="Войти"
             onClick={() => onSubmit}
           />
         </form>

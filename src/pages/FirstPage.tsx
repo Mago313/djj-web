@@ -21,11 +21,10 @@ const FirstPage = () => {
   if (isDayOff) {
     return (
       <MainLayout title="DJJ" subtitle="Уход за мужским имиджем">
-        <Spacing>
-          <h4 style={{ paddingTop: 150 }}>
-            Админ временно приостановил записи
-          </h4>
-        </Spacing>
+        <Spacing
+          paddingTop="150"
+          children={<h4>Админ временно приостановил записи</h4>}
+        />
       </MainLayout>
     );
   }
@@ -43,11 +42,11 @@ const FirstPage = () => {
           <Spacing>
             {state.price && state.dateTime ? (
               <Button
+                children={'Продолжить'}
                 isLoading={false}
                 onClick={() => {
                   setModalVisible(!modalVisible);
                 }}
-                title="Продолжить"
               />
             ) : (
               <></>

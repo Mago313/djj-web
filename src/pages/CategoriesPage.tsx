@@ -1,56 +1,13 @@
 import styles from '../styles/components/CategoriesCard.module.scss';
 import { useStateContext } from '../hooks/useStateContext';
-import { Categories, Category } from '../types/category';
+import { useCategories } from '../hooks/useCategories';
 import { Navigate } from '../components/Navigate';
 import MainLayout from '../layouts/Mainlayout';
 import addition from '../assets/addition.svg';
-import React from 'react';
-
-const categories: Categories = [
-  {
-    card: 'Стрижка',
-    price: 600,
-  },
-  {
-    card: 'Моделирование бороды',
-    price: 400,
-  },
-  {
-    card: 'Стрижка + Борода',
-    price: 800,
-  },
-];
 
 const CategoriesPage = () => {
-  const { state, setState } = useStateContext();
-  const [isRotated, setRotated] = React.useState(false);
-
-  const actions = {
-    addCategory: (item: Category) => {
-      setState((prevState) => {
-        return {
-          ...prevState,
-          cards: prevState?.cards
-            ? [...prevState.cards, item.card]
-            : [item.card],
-          price: prevState?.price ? prevState.price + item.price : item.price,
-        };
-      });
-    },
-    removeCategory: (item: Category) => {
-      setState((prevState) => {
-        return {
-          ...prevState,
-          cards: prevState.cards?.filter((cards) => cards !== item.card),
-          price: prevState.price && prevState.price - item.price,
-        };
-      });
-    },
-  };
-
-  const handleRotateClick = () => {
-    setRotated(!isRotated);
-  };
+  const { state } = useStateContext();
+  const { actions, categories } = useCategories();
 
   return (
     <MainLayout title="Услуги" subtitle="Выберите услуги" isArrow>
@@ -92,11 +49,10 @@ const CategoriesPage = () => {
                       transform: state.cards?.includes(item.card)
                         ? 'rotate(45deg)'
                         : 'rotate(0deg)',
-                      transition: 'transform 0.2s',
+                      transition: 'transform 0.3s',
                     }}
                     alt=""
                     src={addition}
-                    onClick={handleRotateClick}
                   />
                 </div>
               </div>

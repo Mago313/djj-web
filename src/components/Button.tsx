@@ -1,40 +1,45 @@
 import styles from '../styles/components/Button.module.scss';
-import imgStyles from '../styles/pages/Loader.module.scss';
 import loading from '../assets/loading.svg';
+import { styled } from 'styled-components';
+import { Loading } from './Loading';
 
 type TProps = {
-  title: string;
-  isDisabled?: boolean;
-  isLoading: boolean;
-  btnWidth?: number;
+  children: React.ReactChild;
+  isLoading?: boolean;
+  disabled?: boolean;
+  backgroundColor?: string;
+  height?: string;
+  width?: string;
+  color?: string;
   onClick: any;
 };
 
-export const Button = ({
-  title,
-  btnWidth,
-  isDisabled,
+const ButtonBase = styled.button<TProps>`
+  opacity: ${(props) => (props.disabled ? '0.5' : '1')};
+  color: ${(props) => (props.color ? props.color : '#fff')};
+  width: ${(props) => (props.width ? props.width : '100%')};
+  height: ${(props) => (props.height ? props.height : '45px')};
+  background-color: ${(props) =>
+    props.backgroundColor ? props.backgroundColor : '#212121'};
+`;
+
+export const Button: React.FC<TProps> = ({
+  children,
   isLoading,
+  backgroundColor,
+  height,
+  width,
+  color,
   onClick,
-}: TProps) => {
+  disabled,
+}) => {
   return (
-    <button
-      disabled={isDisabled}
+    <ButtonBase
       onClick={onClick}
-      style={{ width: btnWidth }}
-      className={`${styles.formSubmitBtn} ${isDisabled ? styles.disabled : undefined}`}
-    >
-      {isLoading ? (
-        <img
-          className={imgStyles.rot}
-          width={20}
-          height={19}
-          src={loading}
-          alt=""
-        />
-      ) : (
-        title
-      )}
-    </button>
+      disabled={disabled}
+      className={styles.btn}
+      children={isLoading ? <Loading src={loading} /> : children}
+      style={{ backgroundColor, height, width, color }}
+    />
   );
 };

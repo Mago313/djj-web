@@ -1,10 +1,11 @@
 import React from 'react';
-import { checkDateIsEqual, checkIsToday } from '../utils/helpers/date';
-import { useCalendar } from '../hooks/useCalendar';
-import styles from '../styles/components/Calendar.module.scss';
 import arrow from '../assets/arrow.svg';
 import loading from '../assets/black-loading.svg';
-import imgStyles from '../styles/pages/Loader.module.scss';
+import { useCalendar } from '../hooks/useCalendar';
+import styles from '../styles/components/Calendar.module.scss';
+import { Spacing } from '../utils/helpers/Spacing';
+import { checkDateIsEqual, checkIsToday } from '../utils/helpers/date';
+import { Loading } from './Loading';
 
 interface CalendarProps {
   locale?: string;
@@ -104,9 +105,10 @@ export const Calendar: React.FC<CalendarProps> = ({
         </div>
       </div>
       {state.isLoading ? (
-        <div style={{ textAlign: 'center', marginTop: 50 }}>
-          <img className={imgStyles.rot} src={loading} alt="" />
-        </div>
+        <Spacing
+          paddingTop="50px"
+          children={<Loading src={loading} width={50} heigth={50} />}
+        />
       ) : (
         state.filteredTimeIntervals.map((item, index) => {
           return (

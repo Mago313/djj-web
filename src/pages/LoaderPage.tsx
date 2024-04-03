@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../assets/djj.png';
 import umar from '../assets/umar.png';
 import styles from '../styles/pages/Loader.module.scss';
+import { Loading } from '../components/Loading';
 
 const LoaderPage: React.FC = () => {
   return (
@@ -22,7 +23,7 @@ const LoaderPage: React.FC = () => {
             <p>уход за мужским имиджем</p>
           </div>
           <div>
-            <img className={styles.rot} src={logo} alt="" />
+            <Loading src={logo} width={50} />
           </div>
         </div>
       </div>

@@ -1,5 +1,3 @@
-import { SetStateAction } from 'react';
-import { State } from '../types/state';
 import Modal from '../modal/Modal';
 import { Link } from 'react-router-dom';
 import { Button } from './Button';
@@ -31,14 +29,14 @@ export const Navigate = ({ page }: TProps) => {
           }
         >
           <Button
-            isLoading={false}
-            title={
+            children={
               state.cards?.length && state.dateTime
                 ? 'Продолжить'
                 : state.cards?.length || state.dateTime
                   ? 'Далее'
                   : ''
             }
+            isLoading={false}
             onClick={() => {
               if (state.price && state.dateTime) {
                 setModalVisible(!modalVisible);

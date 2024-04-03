@@ -103,11 +103,11 @@ const Modal = () => {
           }
         >
           <Button
-            isDisabled={data.isDisabled}
-            btnWidth={262}
+            disabled={data.isDisabled}
+            width={'262'}
             isLoading={data.isLoading}
             onClick={functions.onSubmit}
-            title={
+            children={
               data.appResponse?.message === 'Date already exists'
                 ? 'Выбрать другое время'
                 : data.appResponse?.appointment?.isActive ||

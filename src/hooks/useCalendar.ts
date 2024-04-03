@@ -40,7 +40,7 @@ export const useCalendar = ({
   firstWeekDayNumber = 2,
 }: UseCalendarParams) => {
   const [isOpen, setIsOpen] = React.useState<string[]>([]);
-  const [mode, setMode] = React.useState<'days' | 'monthes' | 'years'>('days');
+  const [mode, setMode] = React.useState('days');
   const [selectedDay, setSelectedDay] = React.useState(createDate({ date }));
   const [selectedMonth, setSelectedMonth] = React.useState(
     createMonth({
