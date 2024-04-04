@@ -1,24 +1,25 @@
+import { useQuery } from 'react-query';
+import '../App.css';
+import services from '../assets/checkMark.png';
+import date from '../assets/date.svg';
+import { Button } from '../components/Button';
+import MenuBlock from '../components/MenuBlock';
+import { fetchCheckIsDayOff } from '../hooks/useAdmin';
 import { useModalContext } from '../hooks/useModalVisible';
 import { useStateContext } from '../hooks/useStateContext';
-import { Spacing } from '../utils/helpers/Spacing';
-import MenuBlock from '../components/MenuBlock';
-import { useAppSelector } from '../store/store';
-import services from '../assets/checkMark.png';
 import MainLayout from '../layouts/Mainlayout';
-import { Button } from '../components/Button';
-import date from '../assets/date.svg';
-import LoaderPage from './LoaderPage';
 import Modal from '../modal/Modal';
-import '../App.css';
+import { Spacing } from '../utils/helpers/Spacing';
+import LoaderPage from './LoaderPage';
 
 const FirstPage = () => {
   const { state } = useStateContext();
   const { modalVisible, setModalVisible } = useModalContext();
-  const { isDayOff, loading } = useAppSelector((state) => state.adminSlice);
+  const { data, isLoading } = useQuery('isDayOff', fetchCheckIsDayOff);
 
-  if (loading) return <LoaderPage />;
+  if (isLoading) return <LoaderPage />;
 
-  if (isDayOff) {
+  if (data.isDayOff) {
     return (
       <MainLayout title="DJJ" subtitle="Уход за мужским имиджем">
         <Spacing

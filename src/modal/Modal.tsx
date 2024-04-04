@@ -1,15 +1,13 @@
-import React from 'react';
-import styles from '../styles/modal/Modal.module.scss';
-import { Button } from '../components/Button';
 import InputMask from 'react-input-mask';
 import { Link } from 'react-router-dom';
-import { useMutation } from 'react-query';
-import { useStateContext } from '../hooks/useStateContext';
+import { Button } from '../components/Button';
 import { useModal } from '../hooks/useModal';
 import { useModalContext } from '../hooks/useModalVisible';
+import { useStateContext } from '../hooks/useStateContext';
+import styles from '../styles/modal/Modal.module.scss';
 
 const Modal = () => {
-  const { state, setState } = useStateContext();
+  const { state } = useStateContext();
   const { modalVisible } = useModalContext();
   const { data, functions } = useModal();
 
@@ -51,7 +49,7 @@ const Modal = () => {
               <div className={styles.input__wrapper}>
                 <legend>
                   <label
-                    className={data.isValidName ? styles.valid : styles.erorr}
+                    className={data.isValidName ? styles.valid : styles.error}
                     form="phonenumber"
                   >
                     {data.isValidName
@@ -78,7 +76,7 @@ const Modal = () => {
               <label className={styles.dropdown__container}>🇷🇺</label>
               <div className={styles.input__wrapper}>
                 <legend
-                  className={data.isValidPhone ? styles.valid : styles.erorr}
+                  className={data.isValidPhone ? styles.valid : styles.error}
                 >
                   <label form="phonenumber">Введите номер телефона*</label>
                 </legend>

@@ -1,22 +1,14 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { useEffect } from 'react';
+import { useCheckIsAdmin } from './hooks/useCheckIsAdmin';
+import AdminPage from './pages/AdminPage';
+import AuthorizationPage from './pages/AuthorizationPage';
+import CategoriesPage from './pages/CategoriesPage';
 import DatePage from './pages/DatePage';
 import FirstPage from './pages/FirstPage';
-import AdminPage from './pages/AdminPage';
-import { useAppDispatch } from './store/store';
-import { Route, Routes } from 'react-router-dom';
-import CategoriesPage from './pages/CategoriesPage';
-import AuthorizationPage from './pages/AuthorizationPage';
-import { checkIsAdmin, checkIsDayOff } from './store/adminSlise';
 
 function App() {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(checkIsDayOff());
-    dispatch(checkIsAdmin());
-  }, []);
-
+  useCheckIsAdmin();
   return (
     <Routes>
       <Route path="/" element={<FirstPage />} />

@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from '../styles/pages/Loader.module.scss';
 import { styled } from 'styled-components';
+import styles from '../styles/pages/Loader.module.scss';
 
 type TProps = {
   width?: number;
-  heigth?: number;
+  height?: number;
   src: string;
 };
 

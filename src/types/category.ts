@@ -1,5 +1,3 @@
-import { IUser } from './admin';
-
 export type Category = {
   card: string;
   price: number;
@@ -16,5 +14,4 @@ export type Appointment = {
   name: string;
   phone: string;
   updatedAt: string;
-  user: IUser;
 };

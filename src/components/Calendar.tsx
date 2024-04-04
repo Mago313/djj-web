@@ -107,7 +107,7 @@ export const Calendar: React.FC<CalendarProps> = ({
       {state.isLoading ? (
         <Spacing
           paddingTop="50px"
-          children={<Loading src={loading} width={50} heigth={50} />}
+          children={<Loading src={loading} width={50} height={50} />}
         />
       ) : (
         state.filteredTimeIntervals.map((item, index) => {

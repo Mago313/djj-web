@@ -1,14 +1,12 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from './store/store';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { StateProvider } from './hooks/useStateContext';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import { AdminProvider } from './hooks/useAdminContext';
 import { ModalProvider } from './hooks/useModalVisible';
+import { StateProvider } from './hooks/useStateContext';
+import './index.css';
+import reportWebVitals from './reportWebVitals';
 
 const queryClient = new QueryClient();
 
@@ -16,17 +14,17 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <Provider store={store}>
+  <QueryClientProvider client={queryClient}>
     <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
+      <AdminProvider>
         <ModalProvider>
           <StateProvider>
             <App />
           </StateProvider>
         </ModalProvider>
-      </QueryClientProvider>
+      </AdminProvider>
     </BrowserRouter>
-  </Provider>
+  </QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

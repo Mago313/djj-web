@@ -1,17 +1,13 @@
-import styles from '../styles/components/CategoriesCard.module.scss';
-import { useAppDispatch, useAppSelector } from '../store/store';
-import imgStyle from '../styles/pages/Loader.module.scss';
-import PhoneNumber from '../utils/helpers/formatPhone';
-import { useMutation, useQuery } from 'react-query';
-import loading from '../assets/black-loading.svg';
-import { Appointment } from '../types/category';
-import MainLayout from '../layouts/Mainlayout';
-import { dayOff } from '../store/adminSlise';
-import { useEffect, useState } from 'react';
-import { baseService } from '../api/api';
+import ReactSwitch from 'react-switch';
 import arrow from '../assets/arrow.svg';
-import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import loading from '../assets/black-loading.svg';
+import { Loading } from '../components/Loading';
+import { useAdmin } from '../hooks/useAdmin';
+import MainLayout from '../layouts/Mainlayout';
+import styles from '../styles/components/CategoriesCard.module.scss';
+import { Appointment } from '../types/category';
+import { Spacing } from '../utils/helpers/Spacing';
+import PhoneNumber from '../utils/helpers/formatPhone';
 
 export const formatter = new Intl.DateTimeFormat('ru', {
   year: 'numeric',
@@ -22,47 +18,8 @@ export const formatter = new Intl.DateTimeFormat('ru', {
   timeZone: 'UTC',
 });
 
-async function fetchAppointments() {
-  const accessToken = Cookies.get('accessToken');
-  const { data } = await baseService.get('/appointments/get', {
-    headers: { Authorization: `Bearer ${accessToken}` },
-  });
-
-  return data;
-}
-
 const AdminPage = () => {
-  const [isOpen, setIsOpen] = useState<string>('');
-  const [openCardId, setOpenCardId] = useState<string | null>(null);
-  const { isDayOff, isAdmin } = useAppSelector((state) => state.adminSlice);
-  const dispatch = useAppDispatch();
-
-  const { data: appointments, isLoading } = useQuery(
-    'appointments',
-    fetchAppointments
-  );
-
-  const redirect = useNavigate();
-
-  useEffect(() => {
-    !isAdmin && redirect('/', { replace: true });
-  }, [isAdmin]);
-
-  const mutation = useMutation(
-    ({ id, isActive }: { id: string; isActive: boolean }) => {
-      return baseService.patch(`/appointments/status/${id}`, isActive);
-    }
-  );
-  const handleCheckboxChange = (isDayOff: boolean) => {
-    dispatch(dayOff(isDayOff));
-  };
-
-  const toggleOpen = (cardId: string) => {
-    setOpenCardId(openCardId === cardId ? null : cardId);
-    if (openCardId !== cardId) {
-      setIsOpen(cardId);
-    }
-  };
+  const { state, functions } = useAdmin();
 
   return (
     <MainLayout title="Записи" subtitle="Приостановить записи" isArrow>
@@ -71,10 +28,18 @@ const AdminPage = () => {
           textAlign: 'center',
         }}
       >
-        <input
-          checked={isDayOff}
-          type="checkbox"
-          onChange={(e) => handleCheckboxChange(e.target.checked)}
+        <ReactSwitch
+          onColor="#93b1ff"
+          onHandleColor="#93b1ff"
+          handleDiameter={30}
+          uncheckedIcon={true}
+          checkedIcon={true}
+          boxShadow="0px 1px 1px rgba(0, 0, 0, 0.6)"
+          activeBoxShadow="0px 0px 1px 3px rgba(0, 0, 0, 0.2)"
+          height={20}
+          width={48}
+          onChange={functions.handleSwitch}
+          checked={state.user.isDayOff}
         />
       </div>
       <div
@@ -84,15 +49,13 @@ const AdminPage = () => {
           alignItems: 'center',
         }}
       >
-        {isLoading ? (
-          <img
-            style={{ marginTop: 30 }}
-            className={imgStyle.rot}
-            src={loading}
-            alt=""
+        {state.isLoading ? (
+          <Spacing
+            paddingTop="30px"
+            children={<Loading src={loading} height={50} width={50} />}
           />
         ) : (
-          appointments
+          state.appointments
             ?.sort(
               (a: Appointment, b: Appointment) =>
                 new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime()
@@ -117,12 +80,12 @@ const AdminPage = () => {
                       <img
                         src={arrow}
                         alt=""
-                        onClick={() => toggleOpen(item._id)}
+                        onClick={() => functions.toggleOpen(item._id)}
                         width={21}
                         height={21}
                         style={{
                           transform:
-                            openCardId === item._id
+                            state.openCardId === item._id
                               ? 'rotate(90deg)'
                               : 'rotate(270deg)',
                           transition: 'transform 0.4s',
@@ -131,16 +94,16 @@ const AdminPage = () => {
                     </div>
                   </div>
 
-                  {isOpen && (
+                  {state.isOpen && (
                     <div
-                      className={`${styles.hide__container} ${isOpen ? styles.open : undefined}`}
+                      className={`${styles.hide__container} ${state.isOpen ? styles.open : undefined}`}
                     >
                       {item.cards?.map((card, indx) => (
                         <div
-                          className={`${styles.hide} ${openCardId === item._id ? styles.open : undefined}`}
+                          className={`${styles.hide} ${state.openCardId === item._id ? styles.open : undefined}`}
                           key={indx}
                         >
-                          {openCardId === item._id && (
+                          {state.openCardId === item._id && (
                             <p
                               style={{
                                 textAlign: 'center',
@@ -161,7 +124,10 @@ const AdminPage = () => {
                   <input
                     type="checkbox"
                     onClick={() => {
-                      mutation.mutate({ id: item._id, isActive: false });
+                      functions.deleteAppointment({
+                        id: item._id,
+                        isActive: false,
+                      });
                     }}
                   />
                 </div>

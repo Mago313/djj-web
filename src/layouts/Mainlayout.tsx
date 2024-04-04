@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import admin from '../assets/admin.png';
 import arrow from '../assets/arrow.svg';
 import logo from '../assets/djj.png';
-import admin from '../assets/admin.png';
-
+import { useAdminContext } from '../hooks/useAdminContext';
 import styles from '../styles/pages/MainlayoutPage.module.scss';
-import { useAppDispatch, useAppSelector } from '../store/store';
 
 interface Props {
   title: string;
@@ -22,11 +20,11 @@ const MainLayout: React.FC<Props> = ({
   isArrow,
 }) => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
-  const { loading, isAdmin, error } = useAppSelector(
-    (state) => state.adminSlice
-  );
+  const {
+    admin: {
+      data: { user },
+    },
+  } = useAdminContext();
 
   return (
     <div className={styles.root}>
@@ -45,7 +43,7 @@ const MainLayout: React.FC<Props> = ({
               height={40}
             />
 
-            {isAdmin ? (
+            {user.isAdmin ? (
               <Link to="/admin" className={styles.admin}>
                 {<img src={admin} alt="" width={21} height={21} />}
               </Link>
