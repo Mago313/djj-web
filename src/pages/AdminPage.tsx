@@ -1,4 +1,5 @@
 import ReactSwitch from 'react-switch';
+import { Button } from 'src/components/Button';
 import loading from '../assets/black-loading.svg';
 import { Loading } from '../components/Loading';
 import { useAdmin } from '../hooks/useAdmin';
@@ -35,12 +36,9 @@ const AdminPage = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          overflowY: 'scroll',
-          height: '700px',
         }}
-        onScroll={functions.handleScroll}
       >
-        {state.isLoading ? (
+        {state.isFetching ? (
           <Spacing
             paddingTop="30px"
             children={<Loading src={loading} height={50} width={50} />}
@@ -50,10 +48,16 @@ const AdminPage = () => {
             functions.renderItem({ item, index })
           )
         )}
+
+        {state.hasMore && state.appointments?.length && (
+          <Button
+            onClick={functions.loadMoreAppointments}
+            width="300px"
+            isLoading={state.isRefetching}
+            children={'Загрузить ещё'}
+          />
+        )}
       </div>
-      {state.isRefetching && (
-        <Spacing children={<Loading src={loading} height={50} width={50} />} />
-      )}
     </MainLayout>
   );
 };
