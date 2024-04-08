@@ -47,7 +47,7 @@ const MainLayout: React.FC<Props> = ({
               height={40}
             />
 
-            {user.isAdmin && (
+            {user.isAdmin ? (
               <Link
                 onClick={() => {
                   if (isAdmin) {
@@ -66,6 +66,8 @@ const MainLayout: React.FC<Props> = ({
                   />
                 }
               </Link>
+            ) : (
+              <Link to="/" className={styles.empty}></Link>
             )}
           </div>
           <div className={styles.titleSubtitle}>
