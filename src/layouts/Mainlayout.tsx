@@ -1,16 +1,19 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { logout } from 'src/api/api';
 import admin from '../assets/admin.png';
 import arrow from '../assets/arrow.svg';
 import logo from '../assets/djj.png';
+import exit from '../assets/exit.svg';
 import { useAdminContext } from '../hooks/useAdminContext';
-import styles from '../styles/pages/MainlayoutPage.module.scss';
+import styles from '../styles/pages/MainLayoutPage.module.scss';
 
 interface Props {
   title: string;
   subtitle?: string;
   children: any;
   isArrow?: boolean;
+  isAdmin?: boolean;
 }
 
 const MainLayout: React.FC<Props> = ({
@@ -18,6 +21,7 @@ const MainLayout: React.FC<Props> = ({
   title,
   subtitle,
   isArrow,
+  isAdmin,
 }) => {
   const navigate = useNavigate();
   const {
@@ -43,12 +47,25 @@ const MainLayout: React.FC<Props> = ({
               height={40}
             />
 
-            {user.isAdmin ? (
-              <Link to="/admin" className={styles.admin}>
-                {<img src={admin} alt="" width={21} height={21} />}
+            {user.isAdmin && (
+              <Link
+                onClick={() => {
+                  if (isAdmin) {
+                    logout();
+                  }
+                }}
+                to="/admin"
+                className={styles.admin}
+              >
+                {
+                  <img
+                    src={isAdmin ? exit : admin}
+                    alt=""
+                    width={21}
+                    height={21}
+                  />
+                }
               </Link>
-            ) : (
-              <Link to="/" className={styles.empty}></Link>
             )}
           </div>
           <div className={styles.titleSubtitle}>

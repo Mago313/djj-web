@@ -1,33 +1,28 @@
 import React from 'react';
+import styles from '../styles/components/Input.module.scss';
 
 type TProps = {
-  type: string;
-  value: string;
-  maxLength: number;
-  onChange: () => void;
-  multiple?: boolean;
-  placeholder: string;
-  style: string;
+  title: string;
+  children: React.ReactChild;
+  isValid: boolean;
 };
 
-const Input = ({
-  value,
-  onChange,
-  placeholder,
-  type,
-  multiple,
-  style,
-}: TProps) => {
+export const Input = ({ children, title, isValid }: TProps) => {
   return (
-    <input
-      className={style}
-      value={value}
-      onChange={onChange}
-      multiple={multiple}
-      placeholder={placeholder}
-      type={type}
-    />
+    <div
+      style={{
+        border: isValid ? '1px solid green' : undefined,
+      }}
+      className={styles.ui__wrapper}
+    >
+      <div className={styles.input__wrapper}>
+        <legend>
+          <label className={isValid ? styles.valid : styles.error}>
+            {title}
+          </label>
+        </legend>
+        <div className={styles.textfield}>{children}</div>
+      </div>
+    </div>
   );
 };
-
-export default Input;

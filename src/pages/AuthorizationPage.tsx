@@ -1,6 +1,7 @@
 import { Button } from '../components/Button';
 import useAuthorization from '../hooks/useAuthorization';
-import MainLayout from '../layouts/Mainlayout';
+import MainLayout from '../layouts/MainLayout';
+
 import styles from '../styles/pages/AuthorizationPage.module.scss';
 
 const AuthorizationPage = () => {
@@ -34,7 +35,7 @@ const AuthorizationPage = () => {
           <Button
             children={'Войти'}
             disabled={state.isDisabled}
-            isLoading={state.isLoading}
+            isLoading={state.isPending}
             onClick={functions.onSubmit}
           />
         </form>

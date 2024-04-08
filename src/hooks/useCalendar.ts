@@ -1,15 +1,15 @@
-import React from 'react';
-import {
-  getMonthesNames,
-  createMonth,
-  getWeekDaysNames,
-  getMonthNumberOfDays,
-  createDate,
-  formatDate,
-} from '../utils/helpers/date';
-import { baseService } from '../api/api';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { isAfter, parse, set } from 'date-fns';
+import React from 'react';
+import { baseService } from '../api/api';
+import {
+  createDate,
+  createMonth,
+  formatDate,
+  getMonthNumberOfDays,
+  getMonthesNames,
+  getWeekDaysNames,
+} from '../utils/helpers/date';
 
 interface UseCalendarParams {
   locale?: string;
@@ -53,7 +53,10 @@ export const useCalendar = ({
     getYearsInterval(selectedDay.year)
   );
 
-  const { data, isLoading } = useQuery('time', getTimes, {});
+  const { data, isLoading } = useQuery({
+    queryKey: ['time'],
+    queryFn: getTimes,
+  });
 
   const timeIntervals: ITimeIntervals[] = [
     { title: 'Утро', times: ['10:00', '11:00', '12:00'] },

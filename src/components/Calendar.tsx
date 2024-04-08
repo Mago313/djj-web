@@ -17,7 +17,7 @@ interface CalendarProps {
 }
 
 export const Calendar: React.FC<CalendarProps> = ({
-  locale = 'default',
+  locale = 'ru',
   selectedDate: date,
   selectedTime,
   selectDate,
@@ -109,6 +109,8 @@ export const Calendar: React.FC<CalendarProps> = ({
           paddingTop="50px"
           children={<Loading src={loading} width={50} height={50} />}
         />
+      ) : !state.filteredTimeIntervals.length ? (
+        <Spacing paddingTop="100px" children={<h4>Выберите другую дату</h4>} />
       ) : (
         state.filteredTimeIntervals.map((item, index) => {
           return (

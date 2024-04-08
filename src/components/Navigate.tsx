@@ -1,55 +1,40 @@
-import Modal from '../modal/Modal';
 import { Link } from 'react-router-dom';
-import { Button } from './Button';
-import { useStateContext } from '../hooks/useStateContext';
+import Modal from 'src/modal/Modal';
 import { useModalContext } from '../hooks/useModalVisible';
+import { useStateContext } from '../hooks/useStateContext';
+import { Button } from './Button';
 
 type TProps = {
-  page: 'Date' | 'Categories';
+  title: string;
 };
 
-export const Navigate = ({ page }: TProps) => {
+export const Navigate = ({ title }: TProps) => {
   const { state } = useStateContext();
   const { modalVisible, setModalVisible } = useModalContext();
-  if (
-    page === 'Date'
-      ? state.dateTime
-      : page === 'Categories' && state.cards?.length
-  ) {
-    return (
-      <div>
-        <Link
-          style={{ textDecoration: 'none' }}
-          to={
-            state.dateTime && state.cards?.length !== 0
-              ? ''
-              : state.dateTime
-                ? '/categories'
-                : '/date'
-          }
-        >
-          <Button
-            children={
-              state.cards?.length && state.dateTime
-                ? 'Продолжить'
-                : state.cards?.length || state.dateTime
-                  ? 'Далее'
-                  : ''
+
+  return (
+    <div>
+      <Link
+        style={{ textDecoration: 'none' }}
+        to={
+          state.dateTime && state.price
+            ? ''
+            : state.dateTime
+              ? '/categories'
+              : '/date'
+        }
+      >
+        <Button
+          children={state.price && state.dateTime ? 'Продолжить' : title}
+          isLoading={false}
+          onClick={() => {
+            if (state.price && state.dateTime) {
+              setModalVisible(!modalVisible);
             }
-            isLoading={false}
-            onClick={() => {
-              if (state.price && state.dateTime) {
-                setModalVisible(!modalVisible);
-              }
-            }}
-          />
-        </Link>
-        {state.dateTime && state.cards?.length !== 0 && modalVisible && (
-          <Modal />
-        )}
-      </div>
-    );
-  } else {
-    return null;
-  }
+          }}
+        />
+      </Link>
+      {modalVisible && <Modal />}
+    </div>
+  );
 };

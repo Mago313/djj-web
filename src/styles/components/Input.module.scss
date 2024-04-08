@@ -1,4 +1,4 @@
-.wrapper {
+.ui__wrapper {
   --width: 250px;
   --height: 50px;
   --background: #fff;
@@ -11,7 +11,7 @@
   --dropdown-button-hover-color: #dad9d9;
 }
 
-.wrapper {
+.ui__wrapper {
   width: var(--width);
   height: var(--height);
   margin-top: 8px;
@@ -38,6 +38,18 @@
   user-select: none;
 }
 
+.ui__wrapper > input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  position: absolute;
+  left: 9999px;
+}
+
 .input__wrapper {
   width: 100%;
   padding-left: 10px;
@@ -48,11 +60,16 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   row-gap: 4px;
+}
+
+.input__wrapper legend {
+  font-size: 11px;
 }
 
 .input__wrapper .textfield {
@@ -76,4 +93,15 @@
   outline: none;
   border: none;
   background: none;
+}
+
+.error {
+  color: #ff4342;
+}
+.valid {
+  color: green;
+}
+
+.disabled {
+  opacity: 0.5;
 }

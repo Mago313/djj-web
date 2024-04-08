@@ -1,14 +1,14 @@
 import React from 'react';
-import MainLayout from '../layouts/Mainlayout';
-import { Navigate } from '../components/Navigate';
 import { Calendar } from '../components/Calendar';
-import { formatDate } from '../utils/helpers/date';
-import styles from '../styles/pages/DatePage.module.scss';
+import { Navigate } from '../components/Navigate';
 import { useStateContext } from '../hooks/useStateContext';
+import MainLayout from '../layouts/MainLayout';
+import styles from '../styles/pages/DatePage.module.scss';
+import { formatDate } from '../utils/helpers/date';
 import { formatDateISO } from '../utils/helpers/date/formatDateISO';
 
 const DatePage = () => {
-  const { setState } = useStateContext();
+  const { state, setState } = useStateContext();
   const [selectedDate, selectDate] = React.useState(new Date());
   const [selectedTime, selectTime] = React.useState('');
 
@@ -39,7 +39,7 @@ const DatePage = () => {
           selectTime={selectTime}
         />
       </div>
-      <Navigate page="Date" />
+      {state.dateTime && <Navigate title="Далее" />}
     </MainLayout>
   );
 };

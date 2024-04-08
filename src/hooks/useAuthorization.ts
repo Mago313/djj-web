@@ -1,7 +1,7 @@
+import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import React from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { accessToken, baseService, refreshToken } from '../api/api';
 import { useAdminContext } from './useAdminContext';
@@ -17,9 +17,11 @@ const useAuthorization = () => {
   const {
     data: response,
     mutate,
-    isLoading,
-  } = useMutation<any, AxiosError, FieldValues>((data) => {
-    return baseService.post('/auth/login/', data);
+    isPending,
+  } = useMutation<any, AxiosError, FieldValues>({
+    mutationFn: (data) => {
+      return baseService.post('/auth/login/', data);
+    },
   });
 
   const redirect = useNavigate();
@@ -50,7 +52,7 @@ const useAuthorization = () => {
     state: {
       login,
       password,
-      isLoading,
+      isPending,
       isDisabled,
     },
     functions: {

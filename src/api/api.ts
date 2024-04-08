@@ -1,14 +1,17 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-export const baseURL = 'https://server.umardjj.ru';
+export const baseURL = 'http://localhost:2222';
 
 export const baseService = axios.create({
   baseURL,
 });
 
 export const logout = (): void => {
-  Cookies.remove('authorization');
+  Cookies.remove('accessToken');
+  Cookies.remove('refreshToken');
+  window.location.reload();
+  window.location.replace('/');
 };
 
 export const accessToken = (accessToken: string) => {

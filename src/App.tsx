@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
 import { useCheckIsAdmin } from './hooks/useCheckIsAdmin';
 import AdminPage from './pages/AdminPage';
 import AuthorizationPage from './pages/AuthorizationPage';

@@ -6,16 +6,18 @@ const StateContext = createContext<
   | undefined
 >(undefined);
 
+export const initialState = {
+  name: '',
+  cards: [],
+  dateTime: '',
+  phone: 7,
+  price: 0,
+};
+
 export const StateProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [state, setState] = useState<State>({
-    name: '',
-    cards: [],
-    dateTime: '',
-    phone: 7,
-    price: 0,
-  });
+  const [state, setState] = useState<State>(initialState);
 
   return (
     <StateContext.Provider value={{ state, setState }}>

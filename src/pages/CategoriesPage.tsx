@@ -1,9 +1,9 @@
-import styles from '../styles/components/CategoriesCard.module.scss';
-import { useStateContext } from '../hooks/useStateContext';
-import { useCategories } from '../hooks/useCategories';
-import { Navigate } from '../components/Navigate';
-import MainLayout from '../layouts/Mainlayout';
 import addition from '../assets/addition.svg';
+import { Navigate } from '../components/Navigate';
+import { useCategories } from '../hooks/useCategories';
+import { useStateContext } from '../hooks/useStateContext';
+import MainLayout from '../layouts/MainLayout';
+import styles from '../styles/components/CategoriesCard.module.scss';
 
 const CategoriesPage = () => {
   const { state } = useStateContext();
@@ -60,7 +60,7 @@ const CategoriesPage = () => {
           );
         })}
       </div>
-      <Navigate page="Categories" />
+      {state.price !== 0 && <Navigate title="Далее" />}
     </MainLayout>
   );
 };
