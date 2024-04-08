@@ -38,7 +38,7 @@ const AdminPage = () => {
           alignItems: 'center',
         }}
       >
-        {state.isFetching ? (
+        {state.isLoading ? (
           <Spacing
             paddingTop="30px"
             children={<Loading src={loading} height={50} width={50} />}

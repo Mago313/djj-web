@@ -36,7 +36,7 @@ export const useAdmin = () => {
   const [appointments, setAppointments] = useState<Appointment[]>();
   const [hasMore, setHasMore] = useState<boolean>(true);
 
-  const { isFetching, isRefetching } = useQuery({
+  const { isLoading, isRefetching } = useQuery({
     queryKey: ['appointments'],
     queryFn: () => fetchAppointments(),
     enabled: user.isAdmin,
@@ -174,7 +174,7 @@ export const useAdmin = () => {
       openCardId,
       isCardOpen,
       isRefetching,
-      isFetching,
+      isLoading,
       hasMore,
       user,
       limit,
