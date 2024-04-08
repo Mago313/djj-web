@@ -5,6 +5,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { accessToken, baseService, refreshToken } from '../api/api';
 import { useAdminContext } from './useAdminContext';
+import { useCheckIsAdmin } from './useCheckIsAdmin';
 
 export interface IShippingFields {
   login: string;
@@ -12,8 +13,15 @@ export interface IShippingFields {
 }
 
 const useAuthorization = () => {
-  const { register, handleSubmit, watch } = useForm();
-  const { admin, setAdmin } = useAdminContext();
+  useCheckIsAdmin();
+  const { register, handleSubmit, watch } = useForm<IShippingFields>();
+  const { login, password } = watch();
+  const {
+    admin: {
+      data: { user },
+    },
+    setAdmin,
+  } = useAdminContext();
   const {
     data: response,
     mutate,
@@ -25,8 +33,6 @@ const useAuthorization = () => {
   });
 
   const redirect = useNavigate();
-
-  const { login, password } = watch();
 
   React.useEffect(() => {
     if (response) {
@@ -40,9 +46,11 @@ const useAuthorization = () => {
     }
   }, [response]);
 
-  admin.data.user.isAdmin && redirect('/admin', { replace: true });
+  React.useEffect(() => {
+    user.isAdmin && redirect('/admin');
+  }, [user.isAdmin]);
 
-  const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
+  const onSubmit: SubmitHandler<IShippingFields> = (data: IShippingFields) => {
     mutate(data);
   };
 

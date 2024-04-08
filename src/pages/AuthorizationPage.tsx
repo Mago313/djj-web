@@ -36,7 +36,7 @@ const AuthorizationPage = () => {
             children={'Войти'}
             disabled={state.isDisabled}
             isLoading={state.isPending}
-            onClick={functions.onSubmit}
+            onClick={() => {}}
           />
         </form>
       </div>
