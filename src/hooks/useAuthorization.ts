@@ -40,7 +40,7 @@ const useAuthorization = () => {
     }
   }, [response]);
 
-  admin.data.user.isAdmin && redirect('/', { replace: true });
+  admin.data.user.isAdmin && redirect('/admin', { replace: true });
 
   const onSubmit: SubmitHandler<FieldValues> = (data: FieldValues) => {
     mutate(data);

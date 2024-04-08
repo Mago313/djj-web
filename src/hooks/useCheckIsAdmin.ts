@@ -14,10 +14,18 @@ export const useCheckIsAdmin = () => {
 
   const { mutate } = useMutation<IUser, AxiosError, FieldValues>({
     mutationFn: async (data) => {
+      setAdmin((prevAdmin) => ({
+        ...prevAdmin,
+        isLoading: true,
+      }));
       const response = await baseService.post('auth/login/access-token', data);
       setAdmin((prevAdmin) => ({
         ...prevAdmin,
         data: { user: response.data.user },
+      }));
+      setAdmin((prevAdmin) => ({
+        ...prevAdmin,
+        isLoading: false,
       }));
       accessToken(response.data.accessToken);
       refreshToken(response.data.refreshToken);

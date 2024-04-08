@@ -3,7 +3,7 @@ import { IUser } from '../types/user';
 
 const AdminContext = createContext<
   | {
-      admin: IUser;
+      admin: IUser & { isLoading: boolean };
       setAdmin: React.Dispatch<React.SetStateAction<IUser>>;
     }
   | undefined
@@ -14,6 +14,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [admin, setAdmin] = useState<IUser>({
     data: { user: { isAdmin: false, isDayOff: false, login: '', name: '' } },
+    isLoading: false,
   });
 
   return (

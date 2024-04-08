@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { UIEventHandler, useCallback, useState } from 'react';
+import { UIEventHandler, useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { baseService } from '../api/api';
 import { ReactComponent as Addition } from '../assets/addition.svg';
 import { ReactComponent as Arrow } from '../assets/arrow.svg';
@@ -26,6 +27,7 @@ export const useAdmin = () => {
   const {
     admin: {
       data: { user },
+      isLoading: adminLoading,
     },
     setAdmin,
   } = useAdminContext();
@@ -35,6 +37,7 @@ export const useAdmin = () => {
   const [limit, setLimit] = useState(7);
   const [appointments, setAppointments] = useState<Appointment[]>();
   const [hasMore, setHasMore] = useState<boolean>(true);
+  const replace = useNavigate();
 
   const { isLoading, isRefetching } = useQuery({
     queryKey: ['appointments'],
@@ -92,6 +95,12 @@ export const useAdmin = () => {
     }));
     mutate(checked);
   };
+
+  useEffect(() => {
+    if (!user.isAdmin && adminLoading) {
+      replace('/sign-in', { replace: true });
+    }
+  }, []);
 
   const renderItem = useCallback(
     ({ item, index }: { item: Appointment; index: number }) => {
